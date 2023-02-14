@@ -17,6 +17,7 @@ fi
 
 echo "Initializing database"
 python manage.py wait_for_db
+python manage.py makemigrations
 python manage.py migrate
 python manage.py create_roles
 
@@ -29,6 +30,10 @@ if [[ -n "${ADMIN_USERNAME}" ]] && [[ -n "${ADMIN_PASSWORD}" ]] && [[ -n "${ADMI
     --noinput \
   || true
 fi
+
+
+echo "Create Trigger"
+PGPASSWORD=doccano psql -U doccano -p 5432 -h postgres -f /opt/bin/trigger.sql
 
 echo "Starting django"
 gunicorn \
