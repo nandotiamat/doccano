@@ -19,12 +19,18 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class ExampleSerializer(serializers.ModelSerializer):
     annotation_approver = serializers.SerializerMethodField()
+    annotation_approver_role = serializers.SerializerMethodField()
     is_confirmed = serializers.SerializerMethodField()
 
     @classmethod
     def get_annotation_approver(cls, instance):
         approver = instance.annotations_approved_by
         return approver.username if approver else None
+
+    @classmethod
+    def get_annotation_approver_role(cls, instance):
+        role = instance.annotations_approved_by_role
+        return role.name if role else None
 
     def get_is_confirmed(self, instance):
         user = self.context.get("request").user
@@ -41,6 +47,7 @@ class ExampleSerializer(serializers.ModelSerializer):
             "filename",
             "meta",
             "annotation_approver",
+            "annotation_approver_role",
             "comment_count",
             "text",
             "is_confirmed",

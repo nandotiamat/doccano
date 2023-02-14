@@ -1,7 +1,3 @@
-SELECT role_id FROM projects_member WHERE project_id = (SELECT project_id FROM examples_example WHERE id = NEW.example_id) AND user_id = NEW.confirmed_by_id;
-
-SELECT project_id FROM examples_example WHERE id = NEW.example_id;
-
 CREATE FUNCTION update_annotations_approved_by_id_function()
 RETURNS TRIGGER AS $$
 BEGIN
