@@ -23,4 +23,4 @@ class ExampleFilter(FilterSet):
 
     class Meta:
         model = Example
-        fields = ("project", "text", "created_at", "updated_at")
+        fields = ("project", "text", "created_at", "updated_at", "annotations_approved_by_role__name")
